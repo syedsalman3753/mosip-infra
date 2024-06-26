@@ -114,6 +114,19 @@ variable "NGINX_INSTANCE_TYPE" {
 variable "MOSIP_DOMAIN" { type = string }
 variable "ZONE_ID" { type = string }
 
+variable "DNS_RECORDS" {
+  description = "A map of DNS records to create"
+  type = map(object({
+    name             = string
+    type             = string
+    zone_id          = string
+    ttl              = number
+    records          = string
+    allow_overwrite  = bool
+    # health_check_id = string // Uncomment if using health checks
+  }))
+}
+
 # NGINX TAG NAME VARIABLE
 locals {
   TAG_NAME = {
@@ -121,79 +134,6 @@ locals {
   }
 }
 
-
-# DNS CONFIGURATION
-locals {
-  MAP_DNS_TO_IP = {
-    API_DNS = {
-      name    = "api.${var.MOSIP_DOMAIN}"
-      type    = "A"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = aws_instance.NGINX_EC2_INSTANCE.tags.Name == local.TAG_NAME.NGINX_TAG_NAME ? aws_instance.NGINX_EC2_INSTANCE.public_ip : ""
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    API_INTERNAL_DNS = {
-      name    = "api-internal.${var.MOSIP_DOMAIN}"
-      type    = "A"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = aws_instance.NGINX_EC2_INSTANCE.tags.Name == local.TAG_NAME.NGINX_TAG_NAME ? aws_instance.NGINX_EC2_INSTANCE.private_ip : ""
-      #health_check_id = true
-      allow_overwrite = true
-    }
-  }
-}
-locals {
-  MAP_DNS_TO_CNAME = {
-    MOSIP_HOMEPAGE_DNS = {
-      name    = var.MOSIP_DOMAIN
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_INTERNAL_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    ADMIN_DNS = {
-      name    = "admin.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_INTERNAL_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    PREREG_DNS = {
-      name    = "prereg.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    RESIDENT_DNS = {
-      name    = "resident.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    ESIGNET_DNS = {
-      name    = "esignet.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-  }
-}
 
 
 # EC2 INSTANCE DATA: NGINX & K8S NODES

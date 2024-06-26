@@ -112,8 +112,9 @@ resource "aws_instance" "K8S_CLUSTER_EC2_INSTANCE" {
   }
 }
 
-resource "aws_route53_record" "MAP_DNS_TO_IP" {
-  for_each = local.MAP_DNS_TO_IP
+resource "aws_route53_record" "DNS_RECORDS" {
+  #for_each =  merge(local.MAP_DNS_TO_IP, local.MAP_DNS_TO_CNAME)
+  for_each = var.DNS_RECORDS
   name     = each.value.name
   type     = each.value.type
   zone_id  = each.value.zone_id
@@ -122,13 +123,13 @@ resource "aws_route53_record" "MAP_DNS_TO_IP" {
   #health_check_id = true
   allow_overwrite = each.value.allow_overwrite
 }
-resource "aws_route53_record" "MAP_DNS_TO_CNAME" {
-  for_each = local.MAP_DNS_TO_CNAME
-  name     = each.value.name
-  type     = each.value.type
-  zone_id  = each.value.zone_id
-  ttl      = each.value.ttl
-  records  = [each.value.records]
-  #health_check_id = true
-  allow_overwrite = each.value.allow_overwrite
-}
+# resource "aws_route53_record" "MAP_DNS_TO_CNAME" {
+#   for_each = local.MAP_DNS_TO_CNAME
+#   name     = each.value.name
+#   type     = each.value.type
+#   zone_id  = each.value.zone_id
+#   ttl      = each.value.ttl
+#   records  = [each.value.records]
+#   #health_check_id = true
+#   allow_overwrite = each.value.allow_overwrite
+# }
