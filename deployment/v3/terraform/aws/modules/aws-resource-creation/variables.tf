@@ -1,6 +1,7 @@
 variable "AWS_PROVIDER_REGION" { type = string }
 variable "CLUSTER_NAME" { type = string }
 variable "SSH_KEY_NAME" { type = string }
+variable "K8S_INSTANCE_COUNT" { type = number }
 variable "SECURITY_GROUP" {
   type = map(list(object({
     description      = string
@@ -126,6 +127,28 @@ variable "DNS_RECORDS" {
     # health_check_id = string // Uncomment if using health checks
   }))
 }
+locals {
+  MAP_DNS_TO_IP = {
+    API_DNS = {
+      name    = "api.${var.MOSIP_DOMAIN}"
+      type    = "A"
+      zone_id = var.ZONE_ID
+      ttl     = 300
+      records = aws_instance.NGINX_EC2_INSTANCE.tags.Name == local.TAG_NAME.NGINX_TAG_NAME ? aws_instance.NGINX_EC2_INSTANCE.public_ip : ""
+      #health_check_id = true
+      allow_overwrite = true
+    }
+    API_INTERNAL_DNS = {
+      name    = "api-internal.${var.MOSIP_DOMAIN}"
+      type    = "A"
+      zone_id = var.ZONE_ID
+      ttl     = 300
+      records = aws_instance.NGINX_EC2_INSTANCE.tags.Name == local.TAG_NAME.NGINX_TAG_NAME ? aws_instance.NGINX_EC2_INSTANCE.private_ip : ""
+      #health_check_id = true
+      allow_overwrite = true
+    }
+  }
+}
 
 # NGINX TAG NAME VARIABLE
 locals {
@@ -133,7 +156,6 @@ locals {
     NGINX_TAG_NAME = "${var.CLUSTER_NAME}-NGINX-NODE"
   }
 }
-
 
 
 # EC2 INSTANCE DATA: NGINX & K8S NODES
@@ -203,7 +225,7 @@ EOF
     instance_type               = var.K8S_INSTANCE_TYPE
     associate_public_ip_address = true
     key_name                    = var.SSH_KEY_NAME
-    count                       = 1
+    count                       = var.K8S_INSTANCE_COUNT
     tags = {
       Name    = "${var.CLUSTER_NAME}-node"
       Cluster = var.CLUSTER_NAME
