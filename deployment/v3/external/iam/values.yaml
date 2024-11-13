@@ -28,12 +28,12 @@ serviceDiscovery:
   enabled: true
 
 resources:
-  limits: {}
-  #   cpu: 250m
-  #   memory: 1Gi
+  limits:
+    cpu: "1"
+    memory: 3Gi
   requests:
     cpu: 200m
-    memory: 1000Mi
+    memory: 1Gi
 
 rbac:
   create: true
@@ -45,3 +45,97 @@ rbac:
     verbs:
     - get
     - list
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 0
+  periodSeconds: 5
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 6
+  successThreshold: 1
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 300
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 60
+  successThreshold: 1
+
+## Node Selector for keycloak application
+nodeSelector:
+  vlan: "200"
+
+#postgresql:
+#  enabled: true
+#  auth:
+#    username: bn_keycloak
+#    password: ""
+#    database: bitnami_keycloak
+#    existingSecret: ""
+#  architecture: standalone
+#  primary:
+#    persistence:
+#      enabled: true
+#      existingClaim: ""
+#      mountPath: /bitnami/postgresql
+#      subPath: ""
+#      storageClass: ""
+#      accessModes:
+#        - ReadWriteOnce
+#      size: 16Gi
+#      annotations: {}
+#      selector: {}
+#      dataSource: {}
+#    nodeSelector:
+#      vlan: "200"
+#    resources:
+#      limits:
+#        memory: 1.5Gi
+#        cpu: 750m
+#      requests:
+#        memory: 256Mi
+#        cpu: 250m
+#    livenessProbe:
+#      enabled: true
+#      periodSeconds: 10
+#      timeoutSeconds: 5
+#      failureThreshold: 6
+#      successThreshold: 1
+#    readinessProbe:
+#      enabled: true
+#      periodSeconds: 10
+#      timeoutSeconds: 5
+#      failureThreshold: 6
+#      successThreshold: 1
+#    startupProbe:
+#      enabled: true
+#      initialDelaySeconds: 60
+#      periodSeconds: 10
+#      timeoutSeconds: 1
+#      failureThreshold: 15
+#      successThreshold: 1
+#
+
+postgresql:
+  enabled: false
+
+externalDatabase:
+  host: "<host/IP>"
+  port: 5432
+  user: bn_keycloak
+  database: bitnami_keycloak
+  password: "<password>"
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPU: "75"
+  targetMemory: "75"

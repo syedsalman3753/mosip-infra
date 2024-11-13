@@ -4,9 +4,9 @@
 * Review `values.yaml`  
 * Replication factor must not exceed number of nodes available.
 * Install
-```
-$ ./install.sh
-```
+  ```
+  $ ./install.sh
+  ```
 
 ## Steps to Backup & Restore Bitnami Kafka manually
 

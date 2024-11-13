@@ -32,10 +32,25 @@ if [ $yn = "Y" ]
    sed -i 's/\r$//' copy_secrets.sh
    ./copy_secrets.sh
 
+   read -p "Please provide Database host " DB_HOST
+   if [[ -z $DB_HOST ]]; then
+     echo "DB HOST variable not provided; EXITING";
+     exit 1;
+   fi
+   read -p "Please provide Database port " DB_PORT
+   if [[ -z $DB_PORT ]]; then
+     echo "DB PORT variable not provided; EXITING";
+     exit 1;
+   fi
+
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=v1.2.0.1 --version $CHART_VERSION --wait
-
+   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=v1.2.0.1 \
+   --set db.host="$DB_HOST" \
+   --set db.port="$DB_PORT" \
+   --set db.user="masteruser" \
+   --set db.secret.name="db-common-secrets" \
+   --set db.secret.key="db-dbuser-password" \
+   --version $CHART_VERSION --wait 
    else
-   break
-
+     echo "Masterdata loader not executed"
 fi

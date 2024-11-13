@@ -7,8 +7,9 @@ numPartitions: 20
 replicaCount: 5
 sidecars: {}
 autoCreateTopicsEnable: true
-# CAUTION: Option to delete topics should be disabled in production. 
-deleteTopicEnable: true
+# CAUTION: Option to delete topics should be disabled in production.
+# Env vars: KAFKA_CFG_DELETE_TOPIC_ENABLE=false
+deleteTopicEnable: false
 
 persistence:
   enabled: true
@@ -18,17 +19,24 @@ persistence:
 
 zookeeper:
   replicaCount: 5
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 250m
+    requests:
+      memory: 256Mi
+      cpu: 250m
   persistence:
     enabled: true
     size: 2Gi
 
 resources:
-  limits: {}
-  #   cpu: 250m
-  #   memory: 1Gi
+  limits:
+    cpu: 200m
+    memory: 2Gi
   requests: 
     cpu: 200m
-    memory: 2000Mi
+    memory: 2Gi
 
 startupProbe:
   enabled: true
@@ -37,3 +45,20 @@ startupProbe:
   timeoutSeconds: 1
   failureThreshold: 30
   successThreshold: 1
+
+externalAccess:
+  enabled: true
+  service:
+    type: NodePort
+    ports:
+      external: 9094
+    nodePorts:
+    - 30191
+    - 30192
+    - 30193
+    - 30194
+    - 30195
+  autoDiscovery: 
+    enabled: true
+rbac:
+  create: true
