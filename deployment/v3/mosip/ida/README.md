@@ -1,9 +1,14 @@
 # IDA
 
 ## Install
-```
-./install.sh
-```
+
+* **Create a ConfigMap**: In the `softhsm` namespace, create a ConfigMap named `softhsm-ida-share`. Set the key `PKCS11_PROXY_SOCKET` with a value that specifies the HSM service URL as `tcp://<HOST/IP>:<PORT>`.
+* **Create a Secret**: In the `softhsm` namespace, create a Secret named `softhsm-ida`. Set the key `security-pin` with the HSM access key as its value.
+* **Verify IDA Dependencies**: Before installing the IDA module, confirm that `softhsm-ida` Secret are shared with the Config-Server service.
+* Install IDA via below scripts:
+  ```
+  ./install.sh
+  ```
 * During the execution of the `install.sh` script, a prompt appears requesting information regarding the presence of a public domain and a valid SSL certificate on the server.
 * If the server lacks a public domain and a valid SSL certificate, it is advisable to select the `n` option. Opting it will enable the `init-container` with an `emptyDir` volume and include it in the deployment process.
 * The init-container will proceed to download the server's self-signed SSL certificate and mount it to the specified location within the container's Java keystore (i.e., `cacerts`) file.
