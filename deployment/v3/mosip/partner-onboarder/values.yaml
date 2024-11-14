@@ -3,7 +3,7 @@ onboarding:
     - name: ida
       enabled: true
     - name: print
-      enabled: true
+      enabled: false
     - name: abis
       enabled: false
     - name: resident
