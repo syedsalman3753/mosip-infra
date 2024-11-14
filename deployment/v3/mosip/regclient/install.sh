@@ -46,6 +46,7 @@ function installing_regclient() {
     --set regclient.hostName=$INTERNAL_HOST \
     --set istio.host=$REGCLIENT_HOST \
     --wait \
+    --set-string nodeSelector.vlan="200" \
     --version $CHART_VERSION
 
   echo Get your download url from here

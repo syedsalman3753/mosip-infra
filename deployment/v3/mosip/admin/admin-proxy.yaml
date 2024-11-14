@@ -38,10 +38,18 @@ spec:
           timeoutSeconds: 1
           failureThreshold: 2
           successThreshold: 1
-
+        resources:
+          limits:
+            cpu: 200m
+            memory: 700Mi
+          requests:
+            cpu: 50m
+            memory: 200Mi
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/
+      nodeSelector:
+        vlan: '200'
       volumes:
       - name: nginx-conf
         configMap:

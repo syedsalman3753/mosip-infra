@@ -19,14 +19,14 @@ function installing_kafka() {
 
   echo Updating helm repos
   helm repo add kafka-ui https://provectus.github.io/kafka-ui-charts
-  helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka mosip/kafka -f values.yaml --wait --version $CHART_VERSION
+  helm -n $NS install kafka mosip/kafka -f values.yaml --set-string nodeSelector.vlan="202" --wait --version $CHART_VERSION
 
   echo Installing kafka-ui
-  helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION
+  helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --set-string nodeSelector.vlan="202" --wait --version $UI_CHART_VERSION
 
   KAFKA_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
   KAFKA_UI_NAME=kafka-ui

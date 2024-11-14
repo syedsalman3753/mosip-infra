@@ -10,15 +10,34 @@ An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM)
 ## Prerequisites
 The `install.sh` script here assumes that configmap `global` is already there in the default namespace. 
 
+## Database setup
+
+* Create a bitnami keycloak database on external postgres server.
+  ```
+  psql -h <postgres hostname/IP> -p <port> -U postgres -f bitnami_keycloak.dump
+  ```
+* Ensure to change the `bn_keycloak` db user password. The default password for `bn_keycloak` is `abc123`.
+
 ## Install
-* Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart. 
-* To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). 
-```
-$ ./install.sh <kubeconfig file for this cluster>
-```
-* Bitnami keycloak chart here installs postgres too.  If you already have an external postgres DB, point to the same while installing.
+* Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart.
+* Bitnami keycloak chart here installs postgres too.  If you already have an external postgres DB, point to the same in `values.yaml` file while installing.
+  ```
+  postgresql:
+  enabled: false
+  
+  externalDatabase:
+  host: "<host/IP>"
+  port: 5432
+  user: bn_keycloak
+  database: bitnami_keycloak
+  password: "<password>"
+  ```
+* To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak).
+  ```
+  $ ./install.sh <kubeconfig file for this cluster>
+  ```
 * For postgres persistence the chart uses default storage class available with the cluster.
-* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before. Delete them explicity if you need to. CAUTION: all persistent data will be erased if you delete PV.
+* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before. Delete them explicitly if you need to. CAUTION: all persistent data will be erased if you delete PV.
 * To retain data even after PV deletion use a storage class that supports "Retain".  On AWS, you may install `gp2-retain` storage class given here and specify the same while installing Keycloak helm chart.
 
 ## Existing Keycloak
