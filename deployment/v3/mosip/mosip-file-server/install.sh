@@ -38,7 +38,7 @@ function installing_mfs() {
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
     --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
     --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
-    --set-string nodeSelector.vlan="200"                             \
+    --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200"                             \
     --set resources.requests.memory="50Mi"                           \
     --set resources.limits.memory="200Mi"                            \
     --set resources.requests.cpu="50m"                               \

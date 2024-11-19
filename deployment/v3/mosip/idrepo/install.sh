@@ -22,19 +22,19 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install credential mosip/credential --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Running credential request service
-  helm -n $NS install credentialrequest mosip/credentialrequest --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install credentialrequest mosip/credentialrequest --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Running identity service
-  helm -n $NS install identity mosip/identity --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install identity mosip/identity --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Running vid service
-  helm -n $NS install vid mosip/vid --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install vid mosip/vid --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed idrepo services
