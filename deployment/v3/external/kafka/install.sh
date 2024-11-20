@@ -23,10 +23,10 @@ function installing_kafka() {
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka mosip/kafka -f values.yaml --set-string nodeSelector.vlan="202" --wait --version $CHART_VERSION
+  helm -n $NS install kafka mosip/kafka -f values.yaml --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="202" --wait --version $CHART_VERSION
 
   echo Installing kafka-ui
-  helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --set-string nodeSelector.vlan="202" --wait --version $UI_CHART_VERSION
+  helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="202" --wait --version $UI_CHART_VERSION
 
   KAFKA_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
   KAFKA_UI_NAME=kafka-ui
