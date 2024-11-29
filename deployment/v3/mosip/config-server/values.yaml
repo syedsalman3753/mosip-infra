@@ -7,3 +7,23 @@ gitRepo:
   ## User name of user who has access to the private repo. Ignore for public repo
   username: ""
   token: ""
+  localRepo:
+    enabled: false
+    uri: "file:///home/mosip/config_repo/mosip-config"
+    path: /home/mosip/config_repo/mosip-config
+
+persistence:
+  enabled: false
+  #storageClass: ''
+  accessModes:
+    - ReadOnlyMany
+  size: 150Mi
+  existingClaim:
+  # Dir where all incoming packets are stored
+  # Make sure this matches with what is given in the config properties
+  mountDir: /home/mosip/config_repo/
+  reclaimPolicy: Retain
+  nfs:
+    host:
+    path:
+    readOnly: true

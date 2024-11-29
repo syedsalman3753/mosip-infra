@@ -21,7 +21,7 @@ if [ "$flag" = "n" ]; then
 fi
 
 NS=onboarder
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -32,6 +32,7 @@ function installing_onboarder() {
   if [ $yn = "Y" ]; then
     echo Istio label
     kubectl label ns $NS istio-injection=disabled --overwrite
+    helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
     helm repo update
 
     echo Copy configmaps
@@ -67,7 +68,7 @@ function installing_onboarder() {
     s3_user_key=$( kubectl -n s3 get cm s3 -o json | jq -r '.data."s3-user-key"' )
 
     echo Onboarding default partners
-    helm -n $NS install partner-onboarder mosip/partner-onboarder --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" \
+    helm -n $NS install partner-onboarder tf-nira/partner-onboarder --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" \
     --set onboarding.configmaps.s3.s3-host="$s3_url" \
     --set onboarding.configmaps.s3.s3-user-key="$s3_user_key" \
     --set onboarding.configmaps.s3.s3-region="$s3_region" \

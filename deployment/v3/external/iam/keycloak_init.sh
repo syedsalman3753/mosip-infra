@@ -38,9 +38,9 @@ read_user_input(){
 
 function initialize_keycloak() {
   NS=keycloak
-  CHART_VERSION=12.0.1
+  CHART_VERSION=12.0.1-1
 
-  helm repo add mosip https://mosip.github.io/mosip-helm
+  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
   helm repo update
 
   read_user_input SMTP_HOST "'SMTP host' for keycloak"
@@ -65,17 +65,19 @@ function initialize_keycloak() {
           --set keycloak.realms.mosip.realm_config.smtpServer.password=$SMTP_PASSWORD"
   fi
 
-  IAMHOST_URL=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
+  IAMHOST_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 
   echo Initializing keycloak-init
-  helm -n $NS install keycloak-init mosip/keycloak-init   \
+  helm -n $NS install keycloak-init tf-nira/keycloak-init   \
   --set keycloak.realms.mosip.realm_config.smtpServer.host="$SMTP_HOST"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.port="$SMTP_PORT"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.from="$SMTP_FROM_ADDR"                \
   --set keycloak.realms.mosip.realm_config.smtpServer.starttls="$SMTP_STARTTLS"             \
   --set keycloak.realms.mosip.realm_config.smtpServer.ssl="$SMTP_SSL"                       \
   $SMTP_AUTH_SET \
-  --set keycloak.realms.mosip.realm_config.attributes.frontendUrl="https://$IAMHOST_URL/auth" --version $CHART_VERSION
+  --set-string nodeSelector.vlan="200" \
+  --set keycloak.realms.mosip.realm_config.attributes.frontendUrl="https://$IAMHOST_HOST/auth" \
+  --wait --wait-for-jobs --version $CHART_VERSION
   return 0
 }
 

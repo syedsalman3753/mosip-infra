@@ -14,7 +14,7 @@ The `install.sh` script here assumes that configmap `global` is already there in
 
 * Create a bitnami keycloak database on external postgres server.
   ```
-  psql -h <postgres hostname/IP> -p <port> -U postgres -f bitnami_keycloak.dump
+  psql -h <postgres hostname/IP> -p <port> -U postgres -f bitnami-keycloak-db.dump
   ```
 * Ensure to change the `bn_keycloak` db user password. The default password for `bn_keycloak` is `abc123`.
 

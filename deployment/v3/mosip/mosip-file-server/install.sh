@@ -8,7 +8,7 @@ fi
 
 
 NS=mosip-file-server
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -16,6 +16,7 @@ kubectl create ns $NS
 function installing_mfs() {
   echo Istio label Disabled
   kubectl label ns $NS istio-injection=disabled --overwrite
+  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
   helm repo update
 
   echo Copy configmaps
@@ -32,7 +33,7 @@ function installing_mfs() {
   KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
 
   echo Install mosip-file-server. This may take a few minutes ..
-  helm -n $NS install mosip-file-server mosip/mosip-file-server      \
+  helm -n $NS install mosip-file-server tf-nira/mosip-file-server      \
     --set mosipfileserver.host=$FILESERVER_HOST                      \
     --set mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET="$KEYCLOAK_CLIENT_SECRET" \
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
