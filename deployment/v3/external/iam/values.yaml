@@ -1,6 +1,12 @@
 # Refrain from fixing docker tags. Instead use the appropriate chart version, while helm install
 # Latest Helm chart of Bitnami uses Keycloak 18+ 
 
+image:
+  repository: "mosipid/mosip-artemis-keycloak"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 1.2.0.1
+
 service:
   type: ClusterIP
 
@@ -62,7 +68,7 @@ readinessProbe:
   successThreshold: 1
 startupProbe:
   enabled: true
-  initialDelaySeconds: 300
+  initialDelaySeconds: 120
   periodSeconds: 5
   timeoutSeconds: 1
   failureThreshold: 60
@@ -134,7 +140,7 @@ externalDatabase:
   password: "<password>"
 
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   targetCPU: "75"
