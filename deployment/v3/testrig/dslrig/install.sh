@@ -86,7 +86,7 @@ function installing_dslrig() {
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
   echo Installing dslrig
-  helm -n $NS install dslorchestrator mosip/dslorchestrator \
+  helm -n $NS install dslorchestrator syed-nira/dslorchestrator \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION \
   --set dslorchestrator.configmaps.s3.s3-host='http://minio.minio:9000' \
@@ -99,7 +99,7 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
   --set persistence.nfs.server="$NFS_HOST" \
-  --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
+  --set persistence.nfs.path="/srv/nfs/syed-nira/dsl-scenarios/$ENV_NAME" \
   --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
   --set dslorchestrator.configmaps.dslorchestrator.NS="$NS" \
   $ENABLE_INSECURE

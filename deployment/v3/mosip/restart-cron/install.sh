@@ -45,7 +45,7 @@ function installing_restart-cron() {
   helm repo update
 
   echo Installing restart-cron
-  helm -n $NS install restart-cron mosip/restart-cron \
+  helm -n $NS install restart-cron syed-nira/restart-cron \
   --set schedule.crontime="0 $time * * *" \
   -f values.yaml \
   --version $CHART_VERSION

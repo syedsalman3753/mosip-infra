@@ -9,7 +9,7 @@ fi
 function initialize_db() {
   NS=postgres
   CHART_VERSION=12.0.1-1
-  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
   helm repo update
 
   while true; do
@@ -19,7 +19,7 @@ function initialize_db() {
           echo Removing any existing installation
           helm -n $NS delete postgres-init || true
           echo Initializing DB
-          helm -n $NS install postgres-init tf-nira/postgres-init -f init_values.yaml --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
+          helm -n $NS install postgres-init syed-nira/postgres-init -f init_values.yaml --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
           break
         else
           break

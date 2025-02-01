@@ -8,7 +8,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=admin
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-pre-production
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -29,13 +29,13 @@ function installing_admin() {
   kubectl -n $NS apply -f admin-proxy.yaml
 
   echo Installing admin hotlist service.
-  helm -n $NS install admin-hotlist mosip/admin-hotlist --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install admin-hotlist syed-nira/admin-hotlist  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing admin service. Will wait till service gets installed.
-  helm -n $NS install admin-service mosip/admin-service --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION
+  helm -n $NS install admin-service syed-nira/admin-service  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION
 
   echo Installing admin-ui
-  helm -n $NS install admin-ui mosip/admin-ui --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
+  helm -n $NS install admin-ui syed-nira/admin-ui  --set-string nodeSelector.vlan="200" --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -5,7 +5,7 @@
   become_method: sudo
   vars:
     nfs_directories:
-      - name: /srv/nfs/mosip/packetcreator-authdemo-authcerts
+      - name: /srv/nfs/syed-nira/packetcreator-authdemo-authcerts
     nfs_exports:
       "*(rw,sync,no_root_squash,no_all_squash,insecure,subtree_check)"
 

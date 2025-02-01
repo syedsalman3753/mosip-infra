@@ -26,7 +26,7 @@ if [ $yn = "Y" ]
 
    echo Istio label
    kubectl label ns $NS istio-injection=enabled --overwrite
-   helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+   helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
    helm repo update
 
    echo Copy configmaps
@@ -45,8 +45,8 @@ if [ $yn = "Y" ]
    fi
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  tf-nira/masterdata-loader \
-   --set mosipDataGithubRepoUrl="https://github.com/mosip/mosip-data" \
+   helm -n $NS install masterdata-loader  syed-nira/masterdata-loader \
+   --set mosipDataGithubRepoUrl="https://github.com/syed-nira/mosip-data" \
    --set mosipDataGithubBranch="v1.2.0.1" \
    --set db.host="$DB_HOST" \
    --set db.port="$DB_PORT" \

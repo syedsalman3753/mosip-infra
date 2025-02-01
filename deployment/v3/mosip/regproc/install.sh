@@ -22,52 +22,52 @@ function installing_regproc() {
   ./copy_cm.sh
 
   echo Running regproc-salt job
-  helm -n $NS install regproc-salt mosip/regproc-salt --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install regproc-salt syed-nira/regproc-salt  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Installing regproc-workflow
-  helm -n $NS install regproc-workflow mosip/regproc-workflow --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-workflow syed-nira/regproc-workflow  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-status
-  helm -n $NS install regproc-status mosip/regproc-status --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-status syed-nira/regproc-status  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-camel
-  helm -n $NS install regproc-camel mosip/regproc-camel --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-camel syed-nira/regproc-camel  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-pktserver
-  helm -n $NS install regproc-pktserver mosip/regproc-pktserver --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-pktserver syed-nira/regproc-pktserver  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group1
-  helm -n $NS install regproc-group1 mosip/regproc-group1 --set persistence.enabled=false --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group1 syed-nira/regproc-group1 --set persistence.enabled=false  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group2
-  helm -n $NS install regproc-group2 mosip/regproc-group2  --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group2 syed-nira/regproc-group2   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group3
-  helm -n $NS install regproc-group3 mosip/regproc-group3  --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group3 syed-nira/regproc-group3   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group4
-  helm -n $NS install regproc-group4 mosip/regproc-group4 --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group4 syed-nira/regproc-group4  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group5
-  helm -n $NS install regproc-group5 mosip/regproc-group5 --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group5 syed-nira/regproc-group5  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group6
-  helm -n $NS install regproc-group6 mosip/regproc-group6 --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group6 syed-nira/regproc-group6  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing group7
-  helm -n $NS install regproc-group7 mosip/regproc-group7 --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group7 syed-nira/regproc-group7  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-trans
-  helm -n $NS install regproc-trans mosip/regproc-trans --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-trans syed-nira/regproc-trans  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-notifier
-  helm -n $NS install regproc-notifier mosip/regproc-notifier --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-notifier syed-nira/regproc-notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-reprocess
-  helm -n $NS install regproc-reprocess mosip/regproc-reprocess --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-reprocess syed-nira/regproc-reprocess  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing regproc-landingzone
-  helm -n $NS install regproc-landingzone mosip/regproc-landingzone --set image.repository="mosipid/registration-processor-landing-zone" --set image.tag=1.2.0.1 --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version 0.0.1-develop
+  helm -n $NS install regproc-landingzone syed-nira/regproc-landingzone --set image.repository="mosipid/registration-processor-landing-zone" --set image.tag=1.2.0.1  --set-string nodeSelector.vlan="200" --version 0.0.1-develop
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Intalled regproc services

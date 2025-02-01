@@ -14,11 +14,11 @@ kubectl create ns $NS
 
 function installing_status_check() {
   echo Updating repos
-  helm repo add mosip https://mosip.github.io/mosip-helm
+  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
   helm repo update
 
   echo Installing status-check
-  helm -n $NS install staus-check mosip/status-check
+  helm -n $NS install staus-check syed-nira/status-check
 return 0
 }
 

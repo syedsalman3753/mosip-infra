@@ -346,7 +346,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -483,7 +483,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -611,7 +611,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/AUTH_PARTNER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/AUTH_PARTNER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -729,7 +729,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -1464,7 +1464,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -1601,7 +1601,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{MISPpartnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{MISPpartnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -1729,7 +1729,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/MISP_PARTNER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/MISP_PARTNER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -1847,7 +1847,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -2358,7 +2358,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -2495,7 +2495,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -2623,7 +2623,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/DEVICE_PROVIDER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/DEVICE_PROVIDER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -2741,7 +2741,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -3201,7 +3201,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -3338,7 +3338,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -3466,7 +3466,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/FTM_PROVIDER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/FTM_PROVIDER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -3584,7 +3584,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -4205,7 +4205,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -4342,7 +4342,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -4470,7 +4470,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/CREDENTIAL_PARTNER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/CREDENTIAL_PARTNER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -4588,7 +4588,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -5319,7 +5319,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -5456,7 +5456,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -5584,7 +5584,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/ONLINE_VERIFICATION_PARTNER",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/ONLINE_VERIFICATION_PARTNER",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -5702,7 +5702,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -6522,7 +6522,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -6659,7 +6659,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -6787,7 +6787,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/CREDENTIAL_ISSUANCE",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/CREDENTIAL_ISSUANCE",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -6905,7 +6905,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -7801,7 +7801,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -7938,7 +7938,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users?username={{partnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -8066,7 +8066,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/CREDENTIAL_ISSUANCE",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/roles/CREDENTIAL_ISSUANCE",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -8184,7 +8184,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"raw": "{{kcurl}}/auth/admin/realms/syed-nira/users/{{kcuserid}}/role-mappings/realm",
 									"host": [
 										"{{kcurl}}"
 									],

@@ -28,7 +28,7 @@ read_user_input(){
 function initialize_db() {
   NS=postgres
   CHART_VERSION=12.0.1
-  helm repo add mosip https://mosip.github.io/mosip-helm
+  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
   helm repo update
   while true; do
       read -p "Is 'upgrade.csv' for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn
@@ -50,7 +50,7 @@ function initialize_db() {
           read_user_input SU_USER_PWD "Database super user password";
           read_user_input DB_USER_PWD "Database user password";
 
-          helm -n $NS install postgres-upgrade mosip/postgres-upgrade \
+          helm -n $NS install postgres-upgrade syed-nira/postgres-upgrade \
           --set database.host="$DB_SERVERIP" \
           --set database.port="$DB_PORT" \
           --set database.su.user="$SU_USER" \

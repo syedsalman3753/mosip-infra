@@ -57,7 +57,7 @@ function installing_pms_utility() {
   fi
 
   echo Installing pms migration utility
-  helm -n $NS install pms-migration-utility mosip/pms-migration-utility \
+  helm -n $NS install pms-migration-utility syed-nira/pms-migration-utility \
   $CRON --set-string="${CRON_TIME}" \
   $ENABLE_INSECURE \
   --wait --wait-for-jobs \

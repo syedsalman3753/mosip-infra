@@ -46,7 +46,7 @@ function installing_authdemo() {
 
 
   echo Installing authdemo
-  helm -n $NS install authdemo mosip/authdemo $ENABLE_INSECURE \
+  helm -n $NS install authdemo syed-nira/authdemo $ENABLE_INSECURE \
   --set persistence.nfs.server="$NFS_HOST" \
   --version $CHART_VERSION --wait
 

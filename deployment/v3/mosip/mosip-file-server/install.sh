@@ -16,7 +16,7 @@ kubectl create ns $NS
 function installing_mfs() {
   echo Istio label Disabled
   kubectl label ns $NS istio-injection=disabled --overwrite
-  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
   helm repo update
 
   echo Copy configmaps
@@ -33,13 +33,13 @@ function installing_mfs() {
   KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
 
   echo Install mosip-file-server. This may take a few minutes ..
-  helm -n $NS install mosip-file-server tf-nira/mosip-file-server      \
+  helm -n $NS install mosip-file-server syed-nira/mosip-file-server      \
     --set mosipfileserver.host=$FILESERVER_HOST                      \
     --set mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET="$KEYCLOAK_CLIENT_SECRET" \
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
     --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
     --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
-    --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200"                             \
+     --set-string nodeSelector.vlan="200"                             \
     --set resources.requests.memory="50Mi"                           \
     --set resources.limits.memory="200Mi"                            \
     --set resources.requests.cpu="50m"                               \

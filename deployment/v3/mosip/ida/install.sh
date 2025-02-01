@@ -36,16 +36,16 @@ function installing_ida() {
   fi
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install ida-keygen syed-nira/keygen  --set-string nodeSelector.vlan="200" --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing ida auth
-  helm -n $NS install ida-auth mosip/ida-auth --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-auth syed-nira/ida-auth  --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida internal
-  helm -n $NS install ida-internal mosip/ida-internal --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-internal syed-nira/ida-internal  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida otp
-  helm -n $NS install ida-otp mosip/ida-otp --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-otp syed-nira/ida-otp  --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Intalled ida services

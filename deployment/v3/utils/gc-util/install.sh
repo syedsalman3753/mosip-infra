@@ -31,7 +31,7 @@ function installing_gc-util() {
   fi
 
   echo Installing gc-util
-  helm -n $NS install gc-util mosip/gc-util --set crontime="0 $time * * *" \
+  helm -n $NS install gc-util syed-nira/gc-util --set crontime="0 $time * * *" \
   --version $CHART_VERSION
 
   echo Installed garbage cleanup utility

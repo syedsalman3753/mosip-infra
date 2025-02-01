@@ -36,32 +36,32 @@ function installing_kernel() {
   fi
 
   echo Installing authmanager
-  helm -n $NS install authmanager mosip/authmanager --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install authmanager syed-nira/authmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager mosip/auditmanager --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager syed-nira/auditmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
-  helm -n $NS install idgenerator mosip/idgenerator --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install idgenerator syed-nira/idgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install masterdata syed-nira/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager mosip/otpmanager --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install otpmanager syed-nira/otpmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing pridgenerator
-  helm -n $NS install pridgenerator mosip/pridgenerator --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install pridgenerator syed-nira/pridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing ridgenerator
-  helm -n $NS install ridgenerator mosip/ridgenerator --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install ridgenerator syed-nira/ridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing syncdata
-  helm -n $NS install syncdata mosip/syncdata --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install syncdata syed-nira/syncdata  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing notifier
-  helm -n $NS install notifier mosip/notifier --set image.pullPolicy="IfNotPresent" --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install notifier syed-nira/notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

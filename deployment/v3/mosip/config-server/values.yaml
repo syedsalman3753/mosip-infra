@@ -1,5 +1,5 @@
 gitRepo:
-  uri: https://github.com/tf-nira/mosip-config
+  uri: https://github.com/syed-nira/mosip-config
   version: "multivlan-v1.2.0.1"
   ## Folders within the base repo where properties may be found.
   searchFolders: ""
@@ -9,8 +9,8 @@ gitRepo:
   token: ""
   localRepo:
     enabled: false
-    uri: "file:///home/mosip/config_repo/mosip-config"
-    path: /home/mosip/config_repo/mosip-config
+    uri: "file:///home/syed-nira/config_repo/mosip-config"
+    path: /home/syed-nira/config_repo/mosip-config
 
 persistence:
   enabled: false
@@ -21,7 +21,7 @@ persistence:
   existingClaim:
   # Dir where all incoming packets are stored
   # Make sure this matches with what is given in the config properties
-  mountDir: /home/mosip/config_repo/
+  mountDir: /home/syed-nira/config_repo/
   reclaimPolicy: Retain
   nfs:
     host:
