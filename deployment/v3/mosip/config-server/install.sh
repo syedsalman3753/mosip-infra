@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=12.0.1-1
+CHART_VERSION=12.0.1-pre-production
 
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
 if [[  -z $conf_installed || $conf_installed != "Y" ]]; then

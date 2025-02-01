@@ -17,14 +17,14 @@ $ ./preinstall.sh
 ## Run
 The script takes Registration Ids (RIDs) as input. Provide RID directly as argument or via a file. Example:
 ```
-$ ./reprocess.py --rid 1000210074000052021012.0.1401
+$ ./reprocess.py --rid 1000210074000052021012.0.1-pre-production401
 
 OR
 
 $ ./reprocess.py --file rids.txt
 
 where rids.txt looks like:
-1000210074000052021012.0.1401
+1000210074000052021012.0.1-pre-production401
 10001100130000120210114122006
 ...
 ...

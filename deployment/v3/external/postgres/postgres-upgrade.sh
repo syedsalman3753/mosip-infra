@@ -27,7 +27,7 @@ read_user_input(){
 }
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=12.0.1
+  CHART_VERSION=12.0.1-pre-production
   helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
   helm repo update
   while true; do
