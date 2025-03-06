@@ -8,7 +8,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
+-- SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -28,8 +28,7 @@ DROP ROLE IF EXISTS bn_keycloak;
 --
 
 CREATE ROLE bn_keycloak;
-ALTER ROLE bn_keycloak WITH NOSUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:5A/n38LT96378IWJdMXrbQ==$rjVsacmHyfUnR2pI9bMpjYDEU4SSbd/abZDB1Q+DhWE=:gA/sogLQOyoQyaN45V2i03w3UjYil+iumS4IMllsLGw=';
-
+ALTER ROLE bn_keycloak WITH NOSUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'xyz@123';
 
 --
 -- Drop databases
@@ -52,7 +51,7 @@ ALTER DATABASE bitnami_keycloak OWNER TO bn_keycloak;
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
+-- SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -81,4 +80,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-

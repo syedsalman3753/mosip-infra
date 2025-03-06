@@ -12,6 +12,11 @@ The `install.sh` script here assumes that configmap `global` is already there in
 
 ## Database setup
 
+* Install psql client:
+  ```
+  sudo apt install postgresql-client*-y
+  ```
+
 * Create a bitnami keycloak database on external postgres server.
   ```
   psql -h <postgres hostname/IP> -p <port> -U postgres -f bitnami-keycloak-db.dump

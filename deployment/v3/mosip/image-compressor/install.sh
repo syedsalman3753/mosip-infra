@@ -22,7 +22,7 @@ function installing_imagecompressor() {
   ./copy_cm.sh
 
   echo Installing imagecompressor server
-  helm -n $NS install image-compressor syed-nira/biosdk-service \
+  helm -n $NS install image-compressor tf-nira/biosdk-service \
   --set extraEnvVars[0].name="server_servlet_context_env" \
   --set extraEnvVars[0].value="/image-compressor" \
   --set extraEnvVars[1].name="spring_application_name_env" \

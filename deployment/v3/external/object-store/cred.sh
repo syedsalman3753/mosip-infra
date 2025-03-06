@@ -10,7 +10,7 @@ fi
 NS=s3
 
 echo Create $NS namespace
-kubectl create ns $NS 
+kubectl create ns $NS
 
 function installing_Cred() {
   echo Istio label
@@ -37,8 +37,9 @@ function installing_Cred() {
     read -p "Please enter the S3 secret key" PASS
     read -p "Please enter the S3 region" REGION
     read -p "Please provide pretext value : " PRETEXT_VALUE
-    kubectl -n s3 create configmap s3 --from-literal=s3-user-key=$USER --from-literal=s3-region=$REGION --dry-run=client  -o yaml | kubectl apply -f -
-    kubectl -n s3 create secret generic s3 --from-literal=s3-user-secret=$PASS --from-literal=s3-pretext-value=$PRETEXT_VALUE --dry-run=client  -o yaml | kubectl apply -f -
+    read -p "Please provide s3 host url : " S3_URL
+    kubectl -n s3 create configmap s3 --from-literal=s3-url=$S3_URL --from-literal=s3-region=$REGION --dry-run=client  -o yaml | kubectl apply -f -
+    kubectl -n s3 create secret generic s3 --from-literal=s3-user-key=$USER --from-literal=s3-user-secret=$PASS --from-literal=s3-pretext-value=$PRETEXT_VALUE --dry-run=client  -o yaml | kubectl apply -f -
     echo object-store secret and config map is set now.
     break
     else

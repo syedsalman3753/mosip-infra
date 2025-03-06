@@ -81,7 +81,7 @@ if [ $yn = "Y" ]
 
     echo Istio label
     kubectl label ns $NS istio-injection=enabled --overwrite
-    helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
+    helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
     helm repo update
 
     echo Copy configmaps
@@ -93,7 +93,7 @@ if [ $yn = "Y" ]
     ./copy_secrets.sh
 
     echo "Installing config-server"
-    helm -n $NS install config-server syed-nira/config-server \
+    helm -n $NS install config-server tf-nira/config-server \
     --set gitRepo.localRepo.enabled="$local_enabled" \
     --set persistence.enabled="$persistence_enabled" \
     --set-string nodeSelector.vlan="200" \

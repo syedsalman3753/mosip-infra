@@ -28,13 +28,13 @@ function installing_pms() {
   PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
 
   echo Installing partner manager
-  helm -n $NS install pms-partner syed-nira/pms-partner  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-partner tf-nira/pms-partner  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
   echo Installing policy manager
-  helm -n $NS install pms-policy syed-nira/pms-policy  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-policy tf-nira/pms-policy  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
   echo Installing pmp-ui
-  helm -n $NS install pmp-ui syed-nira/pmp-ui  --set-string nodeSelector.vlan="101" --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
+  helm -n $NS install pmp-ui tf-nira/pmp-ui  --set-string nodeSelector.vlan="101" --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -22,7 +22,7 @@ function installing_biosdk() {
   ./copy_cm.sh
 
   echo Installing Biosdk server
-  helm -n $NS install biosdk-service syed-nira/biosdk-service -f values.yaml  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install biosdk-service tf-nira/biosdk-service -f values.yaml  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
   echo Biosdk service installed sucessfully.
   return 0
 }

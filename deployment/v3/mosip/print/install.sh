@@ -23,7 +23,7 @@ function installing_print() {
   ./copy_cm.sh
 
   echo Installing print service
-  helm -n $NS install print-service syed-nira/print-service  --set-string nodeSelector.vlan="200" --wait --version $CHART_VERSION
+  helm -n $NS install print-service tf-nira/print-service  --set-string nodeSelector.vlan="200" --wait --version $CHART_VERSION
   return 0
 }
 

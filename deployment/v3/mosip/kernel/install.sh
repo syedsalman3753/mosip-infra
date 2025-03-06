@@ -36,32 +36,32 @@ function installing_kernel() {
   fi
 
   echo Installing authmanager
-  helm -n $NS install authmanager syed-nira/authmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install authmanager tf-nira/authmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager syed-nira/auditmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager tf-nira/auditmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
-  helm -n $NS install idgenerator syed-nira/idgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install idgenerator tf-nira/idgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata syed-nira/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install masterdata tf-nira/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager syed-nira/otpmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install otpmanager tf-nira/otpmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing pridgenerator
-  helm -n $NS install pridgenerator syed-nira/pridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install pridgenerator tf-nira/pridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing ridgenerator
-  helm -n $NS install ridgenerator syed-nira/ridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install ridgenerator tf-nira/ridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing syncdata
-  helm -n $NS install syncdata syed-nira/syncdata  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install syncdata tf-nira/syncdata  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing notifier
-  helm -n $NS install notifier syed-nira/notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install notifier tf-nira/notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

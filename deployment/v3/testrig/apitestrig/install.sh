@@ -82,7 +82,7 @@ function installing_apitestrig() {
    fi
 
   echo Installing apitestrig
-  helm -n $NS install apitestrig syed-nira/apitestrig \
+  helm -n $NS install apitestrig tf-nira/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml \
   --version $CHART_VERSION \

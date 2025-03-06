@@ -22,8 +22,8 @@ function installing_websub() {
   ./copy_cm.sh
 
   echo Installing websub
-  helm -n $NS install websub-consolidator syed-nira/websub-consolidator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait
-  helm -n $NS install websub syed-nira/websub  --set-string nodeSelector.vlan="200" --set additionalResources.javaOpts="-Xms6000M -Xmx6000M" --version $CHART_VERSION
+  helm -n $NS install websub-consolidator tf-nira/websub-consolidator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait
+  helm -n $NS install websub tf-nira/websub  --set-string nodeSelector.vlan="200" --set additionalResources.javaOpts="-Xms6000M -Xmx6000M" --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed websub services

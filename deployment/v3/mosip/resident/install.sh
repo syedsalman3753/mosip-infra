@@ -51,10 +51,10 @@ function installing_resident() {
   RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
 
   echo Installing Resident
-  helm -n $NS install resident syed-nira/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install resident tf-nira/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing Resident UI
-  helm -n $NS install resident-ui syed-nira/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $RESIDENT_UI_CHART_VERSION
+  helm -n $NS install resident-ui tf-nira/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $RESIDENT_UI_CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

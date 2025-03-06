@@ -40,7 +40,7 @@ function installing_regclient() {
   HEALTH_URL=https://$INTERNAL_HOST/v1/syncdata/actuator/health
 
   echo Install reg client downloader. This may take a few minutes ..
-  helm -n $NS install regclient syed-nira/regclient \
+  helm -n $NS install regclient tf-nira/regclient \
     --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
     --set regclient.healthCheckUrl=$HEALTH_URL \
     --set regclient.hostName=$INTERNAL_HOST \

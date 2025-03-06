@@ -61,7 +61,7 @@ function installing_uitestrig() {
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 
   echo Installing uitestrig
-  helm -n $NS install uitestrig syed-nira/uitestrig \
+  helm -n $NS install uitestrig tf-nira/uitestrig \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION \
   --set uitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \

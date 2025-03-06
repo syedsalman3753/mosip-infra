@@ -40,7 +40,7 @@ function initialize_keycloak() {
   NS=keycloak
   CHART_VERSION=12.0.1-pre-production
 
-  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
+  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
   helm repo update
 
   read_user_input SMTP_HOST "'SMTP host' for keycloak"
@@ -68,7 +68,7 @@ function initialize_keycloak() {
   IAMHOST_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 
   echo Initializing keycloak-init
-  helm -n $NS install keycloak-init syed-nira/keycloak-init   \
+  helm -n $NS install keycloak-init tf-nira/keycloak-init   \
   --set keycloak.realms.mosip.realm_config.smtpServer.host="$SMTP_HOST"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.port="$SMTP_PORT"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.from="$SMTP_FROM_ADDR"                \

@@ -7,75 +7,179 @@ databases:
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_audit:
     enabled: true
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_keymgr:
     enabled: true
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_kernel:
     enabled: true
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_idmap:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    repoUrl: https://github.com/tf-nira/id-repository.git
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_prereg:
     enabled: true
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_idrepo:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    repoUrl: https://github.com/tf-nira/id-repository.git
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_ida:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    repoUrl: https://github.com/tf-nira/id-authentication.git
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_credential:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    repoUrl: https://github.com/tf-nira/id-repository.git
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_regprc:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    repoUrl: https://github.com/tf-nira/registration.git
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_pms:
     enabled: true
-    branch: v1.2.0.1
+    branch: tf_nira_dev
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    repoUrl: https://github.com/tf-nira/partner-management-services.git
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_hotlist:
     enabled: true
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
+
+  mosip_mvs:
+    enabled: true
+    branch: tf_nira_dev
+    repoUrl: https://github.com/tf-nira/manual-verification-service.git
+    host: <database-host>
+    port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
+
+  payment_gateway:
+    enabled: true
+    branch: tf_nira_dev
+    repoUrl: https://github.com/tf-nira/nira-payment-gateway.git
+    host: <database-host>
+    port: <database-port>
+    default_db_name: postgres
+    su:
+      user: postgres
+      secret:
+        name: mosip-user-db-credentials
+        key: mosip-user-password
 
   mosip_resident:
-    enabled: true
+    enabled: false
     branch: v1.2.0.1
     host: <database-host>
     port: <database-port>

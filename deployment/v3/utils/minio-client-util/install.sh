@@ -61,7 +61,7 @@ function installing_minio-client-util() {
   fi
 
   echo Installing minio-client-util
-  helm -n $NS install minio-client-util syed-nira/minio-client-util \
+  helm -n $NS install minio-client-util tf-nira/minio-client-util \
   --set crontime="0 $time * * *" \
   --set "minioclient.configmaps.s3.S3_BUCKET_LIST=$BUCKET_LIST" \
   --set "minioclient.configmaps.s3.S3_SERVER_URL=$S3_SERVER_URL" \

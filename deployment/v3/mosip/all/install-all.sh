@@ -34,6 +34,7 @@ function installing_all() {
                      "mosip-file-server"
                      "resident"
                      "regclient"
+                     "mvs"
                      )
 
   echo Installing MOSIP services

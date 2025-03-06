@@ -11,13 +11,13 @@ function upgrade_init() {
   NS=keycloak
   CHART_VERSION=12.0.1-pre-production
 
-  helm repo add syed-nira https://syedsalman3753.github.io/mosip-helm-nira
+  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
   helm repo update
 
   IAM_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 
   echo Initializing keycloak
-  helm -n $NS install keycloak-upgrade syed-nira/keycloak-init --set frontend=https://$IAM_HOST/auth -f upgrade-init-values.yaml --wait --wait-for-jobs --version $CHART_VERSION
+  helm -n $NS install keycloak-upgrade tf-nira/keycloak-init --set frontend=https://$IAM_HOST/auth -f upgrade-init-values.yaml --wait --wait-for-jobs --version $CHART_VERSION
   return 0
 }
 

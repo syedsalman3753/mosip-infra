@@ -27,25 +27,25 @@ function installing_prereg() {
   PREREG_HOST=`kubectl get cm global -o jsonpath={.data.mosip-prereg-host}`
 
   echo Install prereg-gateway
-  helm -n $NS install prereg-gateway syed-nira/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-gateway tf-nira/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
 
   echo Installing prereg-captcha
-  helm -n $NS install prereg-captcha syed-nira/prereg-captcha  --set-string nodeSelector.vlan="100" --version $CHART_VERSION
+  helm -n $NS install prereg-captcha tf-nira/prereg-captcha  --set-string nodeSelector.vlan="100" --version $CHART_VERSION
 
   echo Installing prereg-application
-  helm -n $NS install prereg-application syed-nira/prereg-application  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install prereg-application tf-nira/prereg-application  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing prereg-booking
-  helm -n $NS install prereg-booking syed-nira/prereg-booking  --set-string nodeSelector.vlan="100" --version $CHART_VERSION
+  helm -n $NS install prereg-booking tf-nira/prereg-booking  --set-string nodeSelector.vlan="100" --version $CHART_VERSION
 
   echo Installing prereg-datasync
-  helm -n $NS install prereg-datasync syed-nira/prereg-datasync  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install prereg-datasync tf-nira/prereg-datasync  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing prereg-batchjob
-  helm -n $NS install prereg-batchjob syed-nira/prereg-batchjob  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install prereg-batchjob tf-nira/prereg-batchjob  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui syed-nira/prereg-ui  --set-string nodeSelector.vlan="100" --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-ui tf-nira/prereg-ui  --set-string nodeSelector.vlan="100" --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml

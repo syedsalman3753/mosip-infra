@@ -44,7 +44,7 @@ function landing_page() {
   HEALTHSERVICES=$(kubectl get cm global -o jsonpath={.data.mosip-healthservices-host})
 
   echo Installing landing page
-  helm -n $NS install landing-page syed-nira/landing-page --version $CHART_VERSION  \
+  helm -n $NS install landing-page tf-nira/landing-page --version $CHART_VERSION  \
   --set landing.version=$VERSION \
   --set landing.name=$NAME \
   --set landing.api=$API \

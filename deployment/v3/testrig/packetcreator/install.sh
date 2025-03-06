@@ -65,7 +65,7 @@ function installing_packetcreator() {
   fi
 
   echo Installing packetcreator
-  helm -n $NS install packetcreator syed-nira/packetcreator \
+  helm -n $NS install packetcreator tf-nira/packetcreator \
   $( echo $list ) \
   --set persistence.nfs.server="$NFS_HOST" \
   --wait --version $CHART_VERSION $ENABLE_INSECURE

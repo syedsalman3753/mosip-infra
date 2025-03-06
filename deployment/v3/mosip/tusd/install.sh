@@ -22,7 +22,7 @@ function installing_tusd() {
   ./copy_cm.sh
 
   echo Installing tusd service
-  helm -n $NS install tusd-service syed-nira/tusd --wait --version $CHART_VERSION
+  helm -n $NS install tusd-service tf-nira/tusd --wait --version $CHART_VERSION
   return 0
 }
 
