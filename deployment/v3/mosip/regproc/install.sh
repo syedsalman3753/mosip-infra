@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regproc
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,52 +22,67 @@ function installing_regproc() {
   ./copy_cm.sh
 
   echo Running regproc-salt job
-  helm -n $NS install regproc-salt tf-nira/regproc-salt  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install regproc-salt nira/regproc-salt  --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Installing regproc-workflow
-  helm -n $NS install regproc-workflow tf-nira/regproc-workflow  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-workflow nira/regproc-workflow  --version $CHART_VERSION -f ./workflow-values.yaml
 
   echo Installing regproc-status
-  helm -n $NS install regproc-status tf-nira/regproc-status  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-status nira/regproc-status  --version $CHART_VERSION -f ./status-values.yaml
 
   echo Installing regproc-camel
-  helm -n $NS install regproc-camel tf-nira/regproc-camel  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-camel nira/regproc-camel  --version $CHART_VERSION -f ./camel-values.yaml
 
   echo Installing regproc-pktserver
-  helm -n $NS install regproc-pktserver tf-nira/regproc-pktserver  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-pktserver nira/regproc-pktserver  --version $CHART_VERSION -f ./pktserver-values.yaml
 
   echo Installing group1
-  helm -n $NS install regproc-group1 tf-nira/regproc-group1 --set persistence.enabled=true --set-string persistence.storageClass="nfs-csi"  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group1 nira/regproc-group1 --set persistence.enabled=true --set-string persistence.storageClass="nfs-csi"  --version $CHART_VERSION -f ./group1-values.yaml
 
   echo Installing group2
-  helm -n $NS install regproc-group2 tf-nira/regproc-group2   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group2 nira/regproc-group2   --version $CHART_VERSION -f ./group2-values.yaml
 
   echo Installing group3
-  helm -n $NS install regproc-group3 tf-nira/regproc-group3   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group3 nira/regproc-group3   --version $CHART_VERSION -f ./group3-values.yaml
 
   echo Installing group4
-  helm -n $NS install regproc-group4 tf-nira/regproc-group4  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group4 nira/regproc-group4  --version $CHART_VERSION -f ./group4-values.yaml
 
   echo Installing group5
-  helm -n $NS install regproc-group5 tf-nira/regproc-group5  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group5 nira/regproc-group5  --version $CHART_VERSION -f ./group5-values.yaml
 
   echo Installing group6
-  helm -n $NS install regproc-group6 tf-nira/regproc-group6  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group6 nira/regproc-group6  --version $CHART_VERSION -f ./group6-values.yaml
 
   echo Installing group7
-  helm -n $NS install regproc-group7 tf-nira/regproc-group7  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-group7 nira/regproc-group7  --version $CHART_VERSION -f ./group7-values.yaml
+
+  echo Installing group8
+  helm -n $NS install regproc-group8 nira/regproc-group8  --version $CHART_VERSION -f ./group8-values.yaml
+
+  echo Installing group9
+  helm -n $NS install regproc-group9 nira/regproc-group9  --version $CHART_VERSION -f ./group9-values.yaml
+
+  echo Installing group10
+  helm -n $NS install regproc-group10 nira/regproc-group10  --version $CHART_VERSION -f ./group10-values.yaml
 
   echo Installing regproc-trans
-  helm -n $NS install regproc-trans tf-nira/regproc-trans  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-trans nira/regproc-trans  --version $CHART_VERSION -f ./trans-values.yaml
 
   echo Installing regproc-notifier
-  helm -n $NS install regproc-notifier tf-nira/regproc-notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-notifier nira/regproc-notifier  --version $CHART_VERSION -f ./notifier-values.yaml
 
   echo Installing regproc-reprocess
-  helm -n $NS install regproc-reprocess tf-nira/regproc-reprocess  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install regproc-reprocess nira/regproc-reprocess  --version $CHART_VERSION -f ./reprocess-values.yaml
+
+  echo Installing regproc-reprocess-3
+  helm -n $NS install regproc-reprocess-3 nira/regproc-reprocess  --version $CHART_VERSION -f ./reprocess-3-values.yaml
+
+  echo Installing regproc-reprocess-processing-status
+  helm -n $NS install regproc-reprocess-processing-status nira/regproc-reprocess  --version $CHART_VERSION -f ./reprocess-status-values.yaml
 
   echo Installing regproc-landingzone
-  helm -n $NS install regproc-landingzone tf-nira/regproc-landingzone --set image.repository="mosipid/registration-processor-landing-zone" --set image.tag=1.2.0.1  --set-string nodeSelector.vlan="200" --version 0.0.1-develop
+  helm -n $NS install regproc-landingzone nira/regproc-landingzone  --version $CHART_VERSION -f ./landingzone-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Intalled regproc services

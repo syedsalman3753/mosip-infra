@@ -1,6 +1,6 @@
 
 ## Increase in production
-replicaCount: 1
+replicaCount: 15
 ## We are using official clamav docker instead of mailu/clamav that was present originally
 image:
   repository: clamav/clamav
@@ -9,15 +9,15 @@ image:
 
 resources:
    limits:
-    cpu: 300m
-    memory: 2.5Gi
+    cpu: "1"
+    memory: 3Gi
    requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: "1"
+    memory: 3Gi
 
 hpa:
   enabled: true
-  maxReplicas: 2
+  maxReplicas: 20
   # average total CPU usage per pod (1-100)
   cpu: 75
   # average memory usage per pod (100Mi-1Gi)

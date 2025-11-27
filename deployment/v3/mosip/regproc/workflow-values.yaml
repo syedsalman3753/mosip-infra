@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 5
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/registration-processor-workflow-manager-service
+  tag: prod_31102025
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms2250M -Xmx2250M"
+
+resources:
+  limits:
+    cpu: 1
+    memory: "3500Mi"
+  requests:
+    cpu: 1
+    memory: "3500Mi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

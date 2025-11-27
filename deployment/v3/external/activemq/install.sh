@@ -14,13 +14,13 @@ kubectl label namespace $NS istio-injection=enabled --overwrite
 
 function installing_Activemq() {
   echo Updating repos
-  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+  helm repo add nira https://niragit.github.io/mosip-helm
   helm repo update
 
   echo Installing Activemq
   ACTIVEMQ_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
   echo Activemq host: $ACTIVEMQ_HOST
-  helm -n $NS install activemq tf-nira/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --wait --version=0.0.2-pre-production
+  helm -n $NS install activemq niragit/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --wait --version=0.0.2-pre-production
   return 0
 }
 

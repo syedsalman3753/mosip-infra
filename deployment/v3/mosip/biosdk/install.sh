@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=biosdk
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_biosdk() {
   ./copy_cm.sh
 
   echo Installing Biosdk server
-  helm -n $NS install biosdk-service tf-nira/biosdk-service -f values.yaml  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install biosdk-service nira/biosdk-service -f values.yaml  --set-string nodeSelector.vlan="200" --version $CHART_VERSION -f ../ha-values.yaml
   echo Biosdk service installed sucessfully.
   return 0
 }

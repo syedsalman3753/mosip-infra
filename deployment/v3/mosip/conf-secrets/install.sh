@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=conf-secrets
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -18,7 +18,7 @@ function config_secrets() {
   helm repo update
 
   echo "Installing Secrets required by config-server"
-  helm -n $NS install conf-secrets tf-nira/conf-secrets --version $CHART_VERSION --wait
+  helm -n $NS install conf-secrets nira/conf-secrets --version $CHART_VERSION -f ../ha-values.yaml --wait
   return 0
 }
 

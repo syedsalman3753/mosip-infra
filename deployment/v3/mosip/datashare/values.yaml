@@ -1,0 +1,22 @@
+autoscaling:
+  enabled: true
+  minReplicas: 40
+  maxReplicas: 40
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: "niradocker/data-share-service"
+  tag: "prod_20092025"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+  - dockerhub
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "5Gi"
+  requests:
+    cpu: "1"
+    memory: "5Gi"

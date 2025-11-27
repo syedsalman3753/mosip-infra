@@ -1,12 +1,12 @@
 image:
   registry: docker.io
-  repository: mosipqa/registration-client
-  tag: 1.2.0.1
+  repository: docker.io/niradocker/registration-client
+  tag: prod_26102025
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -16,7 +16,7 @@ image:
 
 regclient:
   version: 1.2.0.1-SNAPSHOT
-  mountDir: /home/tf-nira/build_files/
+  mountDir: /home/mosip/build_files/
   ## Currently this is hardcoded. Will change in the future
   cryptoKey: bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4=
   upgradeServerUrl: https://regclient.sandbox.xzy.net

@@ -8,12 +8,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=mvs
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
 
-helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira/
+helm repo add nira https://niragit.github.io/mosip-helm/
 
 function installing_mvs() {
   echo Istio label
@@ -35,10 +35,10 @@ function installing_mvs() {
   kubectl -n $NS apply -f mvs-proxy.yaml
 
   echo Installing ms service. Will wait till service gets installed.
-  helm -n $NS install mvs-service tf-nira/mvs-service --version $CHART_VERSION --wait
+  helm -n $NS install mvs-service nira/mvs-service --version $CHART_VERSION -f ./mvs-service-values.yaml --wait
 
   echo Installing mvs-ui
-  helm -n $NS install mvs-ui tf-nira/mvs-ui  --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
+  helm -n $NS install mvs-ui nira/mvs-ui  --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION -f ./mvs-ui-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

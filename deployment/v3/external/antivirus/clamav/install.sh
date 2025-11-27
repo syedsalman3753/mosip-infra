@@ -15,11 +15,11 @@ kubectl create ns $NS
 function installing_Clamav() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
-  helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+  helm repo add nira https://niragit.github.io/mosip-helm
   helm repo update
 
   echo Installing Clamav
-  helm -n $NS install clamav tf-nira/clamav -f values.yaml --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install clamav niragit/clamav -f values.yaml --set-string nodeSelector.vlan="200" --version $CHART_VERSION
 
   echo ClamAV installed sucessfully
   return 0

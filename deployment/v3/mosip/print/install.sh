@@ -8,7 +8,7 @@ fi
 
 
 NS=print
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS 
@@ -23,7 +23,7 @@ function installing_print() {
   ./copy_cm.sh
 
   echo Installing print service
-  helm -n $NS install print-service tf-nira/print-service  --set-string nodeSelector.vlan="200" --wait --version $CHART_VERSION
+  helm -n $NS install print-service nira/print-service  --wait --version $CHART_VERSION -f ./values.yaml
   return 0
 }
 

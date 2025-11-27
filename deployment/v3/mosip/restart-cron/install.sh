@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=infra-admin
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -45,10 +45,10 @@ function installing_restart-cron() {
   helm repo update
 
   echo Installing restart-cron
-  helm -n $NS install restart-cron tf-nira/restart-cron \
+  helm -n $NS install restart-cron nira/restart-cron \
   --set schedule.crontime="0 $time * * *" \
   -f values.yaml \
-  --version $CHART_VERSION
+  --version $CHART_VERSION -f ../ha-values.yaml
   echo Installed restart-cron.
   return 0
   fi

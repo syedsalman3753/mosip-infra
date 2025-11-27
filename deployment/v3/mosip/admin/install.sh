@@ -8,7 +8,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=admin
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -29,13 +29,13 @@ function installing_admin() {
   kubectl -n $NS apply -f admin-proxy.yaml
 
   echo Installing admin hotlist service.
-  helm -n $NS install admin-hotlist tf-nira/admin-hotlist  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install admin-hotlist nira/admin-hotlist  --set image.tag="1.2.0.1-prod"   --set image.repository="niradocker/hotlist-service" --set-string nodeSelector.vlan="200" --version $CHART_VERSION -f ../ha-values.yaml
 
   echo Installing admin service. Will wait till service gets installed.
-  helm -n $NS install admin-service tf-nira/admin-service  --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION
+  helm -n $NS install admin-service nira/admin-service --set image.tag="08112025"  --set image.repository="niradocker/admin-service" --set-string nodeSelector.vlan="200" --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION -f ../ha-values.yaml
 
   echo Installing admin-ui
-  helm -n $NS install admin-ui tf-nira/admin-ui  --set-string nodeSelector.vlan="200" --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
+  helm -n $NS install admin-ui nira/admin-ui --set image.tag="08112025"   --set image.repository="niradocker/admin-ui" --set-string nodeSelector.vlan="200" --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION -f ../ha-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

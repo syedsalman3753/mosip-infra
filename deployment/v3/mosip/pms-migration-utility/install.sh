@@ -57,11 +57,11 @@ function installing_pms_utility() {
   fi
 
   echo Installing pms migration utility
-  helm -n $NS install pms-migration-utility tf-nira/pms-migration-utility \
+  helm -n $NS install pms-migration-utility nira/pms-migration-utility \
   $CRON --set-string="${CRON_TIME}" \
   $ENABLE_INSECURE \
   --wait --wait-for-jobs \
-  --version $CHART_VERSION
+  --version $CHART_VERSION -f ../ha-values.yaml
 
   echo Installed pms-migration-utility
   return 0

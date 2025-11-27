@@ -2,10 +2,12 @@
 # Latest Helm chart of Bitnami uses Keycloak 18+ 
 
 image:
-  repository: "mosipid/mosip-artemis-keycloak"
+  repository: "niradocker/mosip-artemis-keycloak"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 1.2.0.1
+  tag: prod_25092025
+  pullSecrets:
+  - dockerhub
 
 service:
   type: ClusterIP
@@ -38,8 +40,8 @@ resources:
     cpu: "1"
     memory: 3Gi
   requests:
-    cpu: 200m
-    memory: 1Gi
+    cpu: "1"
+    memory: 3Gi
 
 rbac:
   create: true
@@ -133,14 +135,14 @@ postgresql:
   enabled: false
 
 externalDatabase:
-  host: "172.16.104.17"
-  port: 6432
+  host: ""
+  port: ""
   user: bn_keycloak
   database: bitnami_keycloak
-  password: "Prd_M0s!p#_123$"
+  password: ""
 
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 1
   maxReplicas: 5
   targetCPU: "75"

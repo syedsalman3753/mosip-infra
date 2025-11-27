@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 6
+  maxReplicas: 15
+  targetCPUUtilizationPercentage: "90"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: mosipid/kernel-auth-service
+  tag: "1.2.0.1"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms2000M -Xmx2000M"
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "3000Mi"
+  requests:
+    cpu: "500m"
+    memory: "3000Mi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

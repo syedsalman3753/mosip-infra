@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/kernel-ridgenerator-service
+  tag: "1.2.0.1-prod"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms2500M -Xmx2500M"
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "3Gi"
+  requests:
+    cpu: "500m"
+    memory: "3Gi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

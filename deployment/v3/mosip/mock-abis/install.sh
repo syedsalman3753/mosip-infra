@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=abis
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS 
@@ -22,7 +22,7 @@ function installing_abis() {
   helm repo update
 
   echo Installing mock-abis
-  helm -n $NS install mock-abis tf-nira/mock-abis --version $CHART_VERSION
+  helm -n $NS install mock-abis nira/mock-abis --version $CHART_VERSION -f ../ha-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

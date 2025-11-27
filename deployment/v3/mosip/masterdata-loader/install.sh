@@ -12,7 +12,7 @@ read -p "CAUTION: Do you still want to continue(Y/n)" yn
 if [ $yn = "Y" ]
   then
    NS=masterdata-loader
-   CHART_VERSION=12.0.1-pre-production
+   CHART_VERSION=12.0.1-prod
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    kubectl create ns $NS
@@ -26,7 +26,7 @@ if [ $yn = "Y" ]
 
    echo Istio label
    kubectl label ns $NS istio-injection=enabled --overwrite
-   helm repo add tf-nira https://tf-nira.github.io/mosip-helm-nira
+   helm repo add nira https://niragit.github.io/mosip-helm
    helm repo update
 
    echo Copy configmaps
@@ -45,8 +45,8 @@ if [ $yn = "Y" ]
    fi
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  tf-nira/masterdata-loader \
-   --set mosipDataGithubRepoUrl="https://github.com/tf-nira/mosip-data" \
+   helm -n $NS install masterdata-loader  nira/masterdata-loader \
+   --set mosipDataGithubRepoUrl="https://github.com/niragit/mosip-data" \
    --set mosipDataGithubBranch="v1.2.0.1" \
    --set db.host="$DB_HOST" \
    --set db.port="$DB_PORT" \
@@ -54,7 +54,7 @@ if [ $yn = "Y" ]
    --set db.secret.name="db-common-secrets" \
    --set db.secret.key="db-dbuser-password" \
    --set-string nodeSelector.vlan="200" \
-   --version $CHART_VERSION --wait --wait-for-jobs 
+   --version $CHART_VERSION -f ../ha-values.yaml --wait --wait-for-jobs
    else
      echo "Masterdata loader not executed"
 fi

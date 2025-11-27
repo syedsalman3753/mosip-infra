@@ -10,6 +10,14 @@ autoCreateTopicsEnable: true
 # CAUTION: Option to delete topics should be disabled in production.
 # Env vars: KAFKA_CFG_DELETE_TOPIC_ENABLE=false
 deleteTopicEnable: false
+nodeSelector:
+  vlan: "202"
+image:
+  pullPolicy: IfNotPresent
+  repository: "niradocker/kafka"
+  tag: "prod-26092025"
+  pullSecrets:
+  - dockerhub
 
 persistence:
   enabled: true
@@ -19,24 +27,32 @@ persistence:
 
 zookeeper:
   replicaCount: 5
+  nodeSelector:
+    vlan: "202"
+  image:
+    pullPolicy: IfNotPresent
+    repository: "niradocker/kafka"
+    tag: "prod-26092025"
+    pullSecrets:
+    - dockerhub
   resources:
     limits:
-      memory: 256Mi
-      cpu: 250m
+      memory: 2000Mi
+      cpu: 350m
     requests:
-      memory: 256Mi
-      cpu: 250m
+      memory: 2000Mi
+      cpu: 350m
   persistence:
     enabled: true
     size: 2Gi
 
 resources:
   limits:
-    cpu: 200m
-    memory: 2Gi
+    cpu: "2"
+    memory: 6Gi
   requests: 
-    cpu: 200m
-    memory: 2Gi
+    cpu: "2"
+    memory: 6Gi
 
 startupProbe:
   enabled: true

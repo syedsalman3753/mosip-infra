@@ -6,11 +6,24 @@ istio:
     name: ingressgateway-internal
   prefix: /
 
+nodeSelector:
+  vlan: "200"
+
+replicaCount: 15
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "3Gi"
+  requests:
+    cpu: "1"
+    memory: "3Gi"
+
 hpa:
   enabled: false
-  maxReplicas: 3
+  maxReplicas: 19
   # average total CPU usage per pod (1-100)
-  cpu: 80
+  cpu: 75
   # average memory usage per pod (100Mi-1Gi)
-  memory: "1000Mi"
+  memory: 75
   # requests: "500m"

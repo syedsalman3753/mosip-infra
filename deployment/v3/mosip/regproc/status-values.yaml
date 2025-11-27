@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 6
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/registration-processor-registration-status-service
+  tag: prod_19112025
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms1750M -Xmx1750M"
+
+resources:
+  limits:
+    cpu: 1
+    memory: "3Gi"
+  requests:
+    cpu: 1
+    memory: "3Gi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

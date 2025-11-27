@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: mosipid/partner-management-service
+  tag: "1.2.0.1"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms2750M -Xmx2750M"
+
+resources:
+  limits:
+    cpu: "700m"
+    memory: "3500Mi"
+  requests:
+    cpu: "400m"
+    memory: "2816Mi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

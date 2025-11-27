@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=datashare
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS 
@@ -22,7 +22,7 @@ function installing_datashare() {
   ./copy_cm.sh
 
   echo Installing datashare
-  helm -n $NS install datashare tf-nira/datashare  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install datashare nira/datashare  --set-string nodeSelector.vlan="200" --version $CHART_VERSION -f ./values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   return 0

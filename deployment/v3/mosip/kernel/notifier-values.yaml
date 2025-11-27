@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 7
+  maxReplicas: 7
+  targetCPUUtilizationPercentage: "90"
+  targetMemoryUtilizationPercentage: "90"
+
+image:
+  registry: docker.io
+  repository: niradocker/kernel-notification-service
+  tag: "1.2.0.1-prod"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms1250M -Xmx1250M"
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+  requests:
+    cpu: "1"
+    memory: "2Gi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

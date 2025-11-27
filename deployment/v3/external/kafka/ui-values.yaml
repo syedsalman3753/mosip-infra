@@ -9,6 +9,10 @@ envs:
     KAFKA_CLUSTERS_0_KAFKACONNECT_1_NAME: es-connect
 image:
   pullPolicy: IfNotPresent
+  repository: "niradocker/kafka-ui"
+  tag: "prod-26092025"
+  pullSecrets:
+  - dockerhub
 
 resources:
   limits:

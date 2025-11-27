@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/kernel-idgenerator-service
+  tag: "prod_14092025"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms2250M -Xmx2250M"
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "3584Mi"
+  requests:
+    cpu: "500m"
+    memory: "3584Mi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

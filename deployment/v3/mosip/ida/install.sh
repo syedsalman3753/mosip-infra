@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=ida
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -35,17 +35,20 @@ function installing_ida() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
+  echo Installing artifactory for ida
+  helm -n $NS install artifactory-ida nira/artifactory --set image.tag="prod_14092025"  --set image.repository="niradocker/artifactory-service"  --set-string nodeSelector.vlan="101" --version $CHART_VERSION -f ../ha-values.yaml
+
   echo Running ida keygen
-  helm -n $NS install ida-keygen tf-nira/keygen  --set-string nodeSelector.vlan="200" --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install ida-keygen nira/keygen --set image.tag="prod_27112025"  --set image.repository="niradocker/keys-generator"  --set-string nodeSelector.vlan="200" --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing ida auth
-  helm -n $NS install ida-auth tf-nira/ida-auth  --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-auth nira/ida-auth --version $CHART_VERSION -f ../ida-auth-values.yaml $ENABLE_INSECURE
 
   echo Installing ida internal
-  helm -n $NS install ida-internal tf-nira/ida-internal  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-internal nira/ida-internal  --version $CHART_VERSION -f ../ida-internal-values.yaml $ENABLE_INSECURE
 
   echo Installing ida otp
-  helm -n $NS install ida-otp tf-nira/ida-otp  --set-string nodeSelector.vlan="101" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-otp nira/ida-otp  --version $CHART_VERSION -f ../ida-otp-values.yaml $ENABLE_INSECURE
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Intalled ida services

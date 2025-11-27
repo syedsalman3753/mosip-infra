@@ -47,7 +47,7 @@ if [ $yn = "Y" ]
     helm -n $NS install config-server nira/config-server \
     --set-string nodeSelector.vlan="200" \
     -f values.yaml \
-    --wait --wait-for-jobs --version $CHART_VERSION
+    --wait --wait-for-jobs --version $CHART_VERSION -f ../ha-values.yaml
     echo "Installed Config-server".
   else
     echo Exiting the MOSIP installation. Please meet the pre-requisites and than start again.

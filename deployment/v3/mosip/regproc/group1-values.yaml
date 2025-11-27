@@ -1,0 +1,33 @@
+autoscaling:
+  enabled: true
+  minReplicas: 5
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: "75"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/registration-processor-stage-group-1
+  tag: prod_14092025
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  javaOpts: "-Xms4000M -Xmx4000M"
+
+resources:
+  limits:
+    cpu: 1500m
+    memory: "5Gi"
+  requests:
+    cpu: 1500m
+    memory: "5Gi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -36,32 +36,32 @@ function installing_kernel() {
   fi
 
   echo Installing authmanager
-  helm -n $NS install authmanager tf-nira/authmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install authmanager nira/authmanager   --version $CHART_VERSION -f ./auditmanager-values.yaml $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager tf-nira/auditmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager nira/auditmanager   --version $CHART_VERSION -f ./authmanager-values.yaml $ENABLE_INSECURE
 
   echo Installing idgenerator
-  helm -n $NS install idgenerator tf-nira/idgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install idgenerator nira/idgenerator   --version $CHART_VERSION -f ./idgenerator-values.yaml $ENABLE_INSECURE
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata tf-nira/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST   --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install masterdata nira/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST    --version $CHART_VERSION -f ./masterdata-values.yaml
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager tf-nira/otpmanager  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install otpmanager nira/otpmanager   --version $CHART_VERSION -f ./otpmanager-values.yaml
 
   echo Installing pridgenerator
-  helm -n $NS install pridgenerator tf-nira/pridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install pridgenerator nira/pridgenerator   --version $CHART_VERSION -f ./pridgenerator-values.yaml
 
   echo Installing ridgenerator
-  helm -n $NS install ridgenerator tf-nira/ridgenerator  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install ridgenerator nira/ridgenerator  --version $CHART_VERSION -f ./ridgenerator-values.yaml
 
   echo Installing syncdata
-  helm -n $NS install syncdata tf-nira/syncdata  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install syncdata nira/syncdata  --version $CHART_VERSION -f ./syncdata-values.yaml
 
   echo Installing notifier
-  helm -n $NS install notifier tf-nira/notifier  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install notifier nira/notifier  --version $CHART_VERSION -f ./notifier-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -15,10 +15,11 @@ kubectl create ns $NS
 function installing_artifactory() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
+  helm repo add nira https://niragit.github.io/mosip-helm
   helm repo update
 
   echo Installing artifactory
-  helm -n $NS install artifactory nira/artifactory  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install artifactory nira/artifactory --set image.tag="08112025"  --set image.repository="niradocker/artifactory-service"  --set-string nodeSelector.vlan="200" --version $CHART_VERSION -f ../ha-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

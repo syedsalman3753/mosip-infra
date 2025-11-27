@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=idrepo
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,19 +22,25 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  tf-nira/idrepo-saltgen  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  nira/idrepo-saltgen  --set-string nodeSelector.vlan="200" --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential tf-nira/credential  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install credential nira/credential   --version $CHART_VERSION -f ./idrepo-credential-values.yaml
 
   echo Running credential request service
-  helm -n $NS install credentialrequest tf-nira/credentialrequest  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install credentialrequest nira/credentialrequest   --version $CHART_VERSION -f ./idrepo-credential-request-values.yaml
+
+  echo Running ida-credential-request-generator service
+  helm -n $NS install ida-credential-request-generator nira/credentialrequest   --version $CHART_VERSION -f ./idrepo-ida-crg-credentialrequest-values.yaml
 
   echo Running identity service
-  helm -n $NS install identity tf-nira/identity  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install identity nira/identity  --version $CHART_VERSION -f ./idrepo-identity-values.yaml
+
+  echo Running identity-credential-batch service
+  helm -n $NS install identity-credential-batch nira/identity  --version $CHART_VERSION -f ./idrepo-identity-credential-batch-values.yaml
 
   echo Running vid service
-  helm -n $NS install vid tf-nira/vid  --set-string nodeSelector.vlan="200" --version $CHART_VERSION
+  helm -n $NS install vid nira/vid --version $CHART_VERSION -f ./idrepo-vid-values.yaml
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed idrepo services

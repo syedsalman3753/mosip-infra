@@ -1,0 +1,34 @@
+autoscaling:
+  enabled: true
+  minReplicas: 30
+  maxReplicas: 35
+  targetCPUUtilizationPercentage: "80"
+  targetMemoryUtilizationPercentage: "75"
+
+image:
+  registry: docker.io
+  repository: niradocker/commons-packet-service
+  tag: "prod_14092025"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - dockerhub
+
+nodeSelector:
+  vlan: "200"
+
+additionalResources:
+  ## JAVA_OPTS to match runtime requirements
+  javaOpts: "-Xms3750M -Xmx3750M"
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "5Gi"
+  requests:
+    cpu: "1"
+    memory: "5Gi"
+
+extraEnvVarsCM:
+  - global
+  - config-server-share
+  - artifactory-share

@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=bqatsdk
-CHART_VERSION=12.0.1-pre-production
+CHART_VERSION=12.0.1-prod
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_bqatsdk() {
   ./copy_cm.sh
 
   echo Installing Bqatsdk server
-  helm -n $NS install bqatsdk-service tf-nira/biosdk-service \
+  helm -n $NS install bqatsdk-service nira/biosdk-service \
   --set extraEnvVars[0].name="server_servlet_context_env" \
     --set extraEnvVars[0].value="/bqatsdk-service" \
     --set extraEnvVars[1].name="spring_application_name_env" \
@@ -36,7 +36,7 @@ function installing_bqatsdk() {
     --set biosdk.bioapiImpl="io.bqat.sdk.impl.BqatQualitySDKService" \
     --set istio.prefix="\/bqatsdk-service" \
     --set fullnameOverride="bqatsdk-service" \
-    --version $CHART_VERSION
+    --version $CHART_VERSION -f ../ha-values.yaml
 
   echo Bqatsdk service installed sucessfully.
   return 0
